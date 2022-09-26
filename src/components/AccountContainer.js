@@ -13,7 +13,7 @@ function AccountContainer() {
       });
   }, []);
 
-  function handleFormSubmission(newtransactioninput){
+  function formSubmission(newtransactioninput){
         console.log(newtransactioninput)
         const configurationData =  {
           method: "POST",
@@ -28,16 +28,16 @@ function AccountContainer() {
              .catch((error)=>{console.log(error)})
   }
 
-  function handleSearch(search){
+  function handleSearching(search){
        console.log(search)
        const filterSEarch = transactions.filter((transaction)=>{return transaction.description.toLowerCase().includes(search.toLowerCase()) })
        
        setTransactions(filterSEarch)
        console.log(transactions)
   }
-  function deleteTrans(transactionid){
+  function deleteTransaction(transactionid){
   
-    const  itemToBeRemoved =  transactions[transactionid]
+    const  itemToBeDeleted =  transactions[transactionid]
     
     const  dataToDelete =  {
       method: "DELETE",
@@ -46,7 +46,7 @@ function AccountContainer() {
       } 
     }
     const filterTransactions = transactions.filter(
-			(singletransaction) => singletransaction !== itemToBeRemoved
+			(singletransaction) => singletransaction !== itemToBeDeleted
 		);
     
 
@@ -60,9 +60,9 @@ function AccountContainer() {
 
   return (
     <div>
-      <Search onUserSearch={handleSearch}/>
-      <AddTransactionForm onSubmission={handleFormSubmission}/>
-      <TransactionsList  handleDelete={deleteTrans} transactions={transactions}/>
+      <Search onSearch={handleSearching}/>
+      <AddTransactionForm onSubmission={formSubmission}/>
+      <TransactionsList  handleDeleting={deleteTransaction} theTransactions={transactions}/>
     </div>
   );
 }
